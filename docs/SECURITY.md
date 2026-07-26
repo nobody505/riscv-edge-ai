@@ -48,25 +48,17 @@ mode 0600
 
 不要把 `/dev/mem`、全部 ttyUSB、运行目录或整个用户家目录改成全局可写。任何网络、语音或 App 输入都不得拼接进 shell 命令。
 
-## 供应链与自动检查
+## 供应链校验
 
 `vendor/SHA256SUMS` 与 SenseVoice 校验文件固定大型制品内容。安装前先验证 SHA-256，再检查 tar 成员路径，拒绝绝对路径、`..`、设备节点和越界链接。
 
 板端 MQTT 使用 OneNET 8883/TLS。由于该端点提供的是 CN 不匹配 DNS 名称的自签名证书，仓库只信任 `config/onenet-mqtt-ca.pem`，并在握手后再次核对服务端 DER 证书 SHA-256 指纹，而不是关闭证书校验。证书更新必须同时复核来源、有效期、运行时代码中的指纹和 `config/SHA256SUMS`。
 
-GitHub Actions 会执行：
-
-- Gitleaks 与项目定制的凭据/个人信息规则；
-- Python 编译、Bandit 和 pip-audit；
-- ShellCheck 与 Cppcheck；
-- npm clean install/audit；
-- JSON、归档路径和大型制品哈希校验。
-
 ## 发布前检查
 
 1. 确认模板仍只有 `REPLACE_WITH_*` 占位符；
 2. 扫描当前树和完整 Git 历史；
-3. 复核 GitHub Secret Scanning、Dependabot 和 Code Scanning；
+3. 复核 GitHub Secret Scanning；
 4. 确认没有个人路径、固定坐标、手机号、主机名或私网拓扑；
 5. 验证依赖、制品哈希、systemd、sudoers 和 udev 规则；
 6. 在新板部署时使用新生成的凭据，不复用已公开值。
