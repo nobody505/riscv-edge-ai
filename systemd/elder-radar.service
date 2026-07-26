@@ -1,0 +1,29 @@
+[Unit]
+Description=Elder Assistant HC-SR04 Radar and WS2812B Warning
+After=local-fs.target
+Before=elder-fall.service elder-voice.service
+PartOf=elder-care.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+ExecStartPre=/usr/bin/test -x /usr/local/libexec/elder-assistant/radar_led
+ExecStart=/usr/local/libexec/elder-assistant/radar_led
+Restart=always
+RestartSec=2s
+KillSignal=SIGTERM
+TimeoutStopSec=8s
+UMask=0007
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelModules=yes
+ReadWritePaths=/run/elder-assistant
+RestrictAddressFamilies=AF_UNIX
+StandardOutput=null
+StandardError=journal
+
+[Install]
+WantedBy=elder-care.target

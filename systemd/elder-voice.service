@@ -1,0 +1,39 @@
+[Unit]
+Description=Elder Assistant Wake Word and Voice Command Listener
+Requires=elder-radar.service
+After=elder-radar.service sound.target
+PartOf=elder-care.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=space
+SupplementaryGroups=elder-assistant
+WorkingDirectory=/home/space/voice
+Environment=HOME=/home/space
+Environment=PYTHONUNBUFFERED=1
+Environment=RADAR_MANAGED_EXTERNALLY=1
+EnvironmentFile=-/etc/elder-assistant/elder.env
+ExecStartPre=/usr/bin/test -x /home/space/spacevenv/bin/python3
+ExecStartPre=/usr/bin/test -f /home/space/voice/voice_assistant_v4.py
+ExecStartPre=/bin/sh -c 'n=0; while ! /usr/bin/pgrep -x radar_led >/dev/null; do n=$$((n+1)); [ "$$n" -ge 20 ] && exit 1; sleep 0.5; done'
+ExecStart=/home/space/spacevenv/bin/python3 -u /home/space/voice/voice_assistant_v4.py
+Restart=always
+RestartSec=3s
+KillSignal=SIGTERM
+KillMode=mixed
+TimeoutStopSec=25s
+UMask=0007
+PrivateTmp=yes
+ProtectHome=read-only
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ReadWritePaths=/run/elder-assistant /home/space/.cache /home/space/jdk_cam/workspace
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=elder-care.target

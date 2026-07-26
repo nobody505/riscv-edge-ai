@@ -1,0 +1,8 @@
+[Unit]
+Description=Elder Assistant Voice, Radar and Fall Detection Stack
+Wants=lbs-service.service elder-incoming-sms.service
+Requires=elder-radar.service elder-fall.service elder-voice.service
+After=lbs-service.service elder-radar.service elder-fall.service elder-voice.service elder-incoming-sms.service
+
+[Install]
+WantedBy=multi-user.target

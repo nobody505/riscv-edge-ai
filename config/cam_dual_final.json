@@ -1,0 +1,44 @@
+{
+  "tuning_server_enable": 0,
+  "show_fps": 0,
+  "auto_run": 1,
+  "test_frame": 99999,
+  "sensor_node": [
+    {
+      "sensor_name": "imx219_spm",
+      "sensor_id": 2,
+      "fps": 30
+    },
+    {
+      "sensor_name": "imx219_spm",
+      "sensor_id": 0,
+      "fps": 30
+    }
+  ],
+  "isp_node": [
+    {
+      "name": "isp0",
+      "enable": 1,
+      "work_mode": "online",
+      "format": "NV12",
+      "out_width": 320,
+      "out_height": 320,
+      "sensor_name": "imx219_spm",
+      "sensor_id": 2,
+      "sensor_work_mode": 0,
+      "fps": 30
+    },
+    {
+      "name": "isp1",
+      "enable": 1,
+      "work_mode": "online",
+      "format": "NV12",
+      "out_width": 320,
+      "out_height": 320,
+      "sensor_name": "imx219_spm",
+      "sensor_id": 0,
+      "sensor_work_mode": 0,
+      "fps": 30
+    }
+  ]
+}

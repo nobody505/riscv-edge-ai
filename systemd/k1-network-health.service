@@ -1,0 +1,26 @@
+[Unit]
+Description=K1 runtime RNDIS and DNS health guard
+Documentation=file:/usr/local/share/doc/k1-network-health/README.md
+After=NetworkManager.service systemd-resolved.service k1-network-init.service
+Wants=NetworkManager.service systemd-resolved.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/python3 -u /usr/local/sbin/k1-network-health.py
+ExecStopPost=/usr/bin/python3 /usr/local/sbin/k1-network-health.py --cleanup
+Restart=always
+RestartSec=10s
+TimeoutStopSec=15s
+RuntimeDirectory=k1-network-health
+RuntimeDirectoryMode=0750
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=full
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target

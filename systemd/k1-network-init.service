@@ -1,0 +1,20 @@
+[Unit]
+Description=K1 Network Init (ML307A dial + route + DNS)
+Before=lbs-service.service
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/usr/bin/python3 /usr/local/libexec/elder-assistant/k1_bootfix.py
+RemainAfterExit=yes
+TimeoutStartSec=120
+UMask=0027
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6 AF_NETLINK
+
+[Install]
+WantedBy=multi-user.target

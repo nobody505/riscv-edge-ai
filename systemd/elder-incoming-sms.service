@@ -1,0 +1,36 @@
+[Unit]
+Description=Elder Assistant Trusted Incoming SMS Receiver
+Wants=lbs-service.service elder-voice.service
+After=lbs-service.service elder-voice.service
+PartOf=elder-care.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=space
+SupplementaryGroups=elder-assistant
+WorkingDirectory=/home/space
+Environment=HOME=/home/space
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/etc/elder-assistant/elder.env
+UMask=0007
+ExecStartPre=/usr/bin/test -f /home/space/incoming_sms_to_tts.py
+ExecStart=/home/space/spacevenv/bin/python3 -u /home/space/incoming_sms_to_tts.py --poll-interval 5
+Restart=always
+RestartSec=5s
+KillSignal=SIGTERM
+TimeoutStopSec=15s
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=read-only
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ReadWritePaths=/run/elder-assistant /home/space/.local/state/elder-incoming-sms
+RestrictAddressFamilies=AF_UNIX
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=elder-care.target

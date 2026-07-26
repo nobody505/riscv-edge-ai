@@ -1,0 +1,28 @@
+[Unit]
+Description=K1 WiFi LBS Service
+After=k1-network-init.service
+
+[Service]
+Type=simple
+User=space
+SupplementaryGroups=elder-assistant
+WorkingDirectory=/home/space
+EnvironmentFile=-/etc/elder-assistant/elder.env
+ExecStart=/home/space/spacevenv/bin/python3 -u /home/space/lbs_service.py
+Restart=always
+RestartSec=10
+UMask=0007
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=read-only
+ProtectSystem=strict
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+ReadWritePaths=/run/elder-assistant
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

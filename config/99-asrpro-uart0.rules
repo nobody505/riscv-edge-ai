@@ -1,0 +1,2 @@
+# ASRPRO V2.0 event receiver on K1 UART0 (40-pin Pin 10 / RXD).
+SUBSYSTEM=="tty", KERNEL=="ttyS0", GROUP="dialout", MODE="0660"

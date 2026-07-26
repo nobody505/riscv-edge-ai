@@ -1,0 +1,12 @@
+Cmnd_Alias ELDER_HARDWARE = /usr/local/sbin/elder-hwctl radar-start, \
+    /usr/local/sbin/elder-hwctl radar-stop, \
+    /usr/local/sbin/elder-hwctl consumer-stop, \
+    /usr/local/sbin/elder-hwctl consumer-kill, \
+    /usr/local/sbin/elder-hwctl camera-stop, \
+    /usr/local/sbin/elder-hwctl camera-start, \
+    /usr/local/sbin/elder-hwctl tcm-perms, \
+    /usr/local/sbin/elder-hwctl audio-stop pipewire, \
+    /usr/local/sbin/elder-hwctl audio-stop wireplumber, \
+    /usr/local/sbin/elder-hwctl audio-stop pipewire-pulse
+
+space ALL=(root) NOPASSWD: ELDER_HARDWARE

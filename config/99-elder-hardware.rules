@@ -1,0 +1,1 @@
+KERNEL=="tcm", GROUP="elder-assistant", MODE="0660"

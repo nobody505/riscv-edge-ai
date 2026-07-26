@@ -1,0 +1,34 @@
+[Unit]
+Description=Elder Assistant ADXL345 Fall Detection and SMS Alarm
+Requires=elder-radar.service
+After=elder-radar.service lbs-service.service
+PartOf=elder-care.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/run/elder-assistant
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/etc/elder-assistant/elder.env
+ExecStartPre=/usr/bin/test -e /dev/i2c-3
+ExecStartPre=/usr/bin/test -x /usr/local/libexec/elder-assistant/fall_detect_adxl345.py
+ExecStartPre=/bin/sh -c 'n=0; while [ "$$n" -lt 90 ]; do /usr/bin/journalctl -b -u lbs-service.service -n 160 --no-pager 2>/dev/null | /usr/bin/grep -Eq "WiFi [0-9]+ APs|GPS  [-0-9]" && exit 0; n=$$((n+1)); sleep 0.5; done; echo "WARN: OneNET positioning cycle not ready after 45s; starting fall detection anyway" >&2; exit 0'
+ExecStart=/usr/bin/python3 -u /usr/local/libexec/elder-assistant/fall_detect_adxl345.py
+Restart=always
+RestartSec=3s
+KillSignal=SIGTERM
+TimeoutStopSec=30s
+UMask=0007
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=strict
+ProtectKernelModules=yes
+ReadWritePaths=/run/elder-assistant
+RestrictAddressFamilies=AF_UNIX
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=elder-care.target

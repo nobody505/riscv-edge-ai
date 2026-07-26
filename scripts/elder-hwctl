@@ -1,0 +1,44 @@
+#!/bin/sh
+set -eu
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+case "${1:-}" in
+  radar-start)
+    exec /usr/local/libexec/elder-assistant/radar_led
+    ;;
+  radar-stop)
+    /usr/bin/pkill -TERM -x radar_led || true
+    ;;
+  consumer-stop)
+    /usr/bin/pkill -TERM -f '[/]home/space/jdk_cam/workspace/consumer_final_new_gray' || true
+    ;;
+  consumer-kill)
+    /usr/bin/pkill -KILL -f '[/]home/space/jdk_cam/workspace/consumer_final_new_gray' || true
+    ;;
+  camera-stop)
+    /usr/bin/pkill -INT -x cam-test || true
+    ;;
+  camera-start)
+    exec /usr/local/libexec/elder-assistant/start-camera
+    ;;
+  tcm-perms)
+    /bin/chgrp elder-assistant /dev/tcm
+    /bin/chmod 0660 /dev/tcm
+    ;;
+  audio-stop)
+    case "${2:-}" in
+      pipewire|wireplumber|pipewire-pulse)
+        /usr/bin/pkill -KILL -x "${2}" || true
+        ;;
+      *)
+        echo "unsupported audio process" >&2
+        exit 2
+        ;;
+    esac
+    ;;
+  *)
+    echo "usage: elder-hwctl {radar-start|radar-stop|consumer-stop|consumer-kill|camera-stop|camera-start|tcm-perms|audio-stop NAME}" >&2
+    exit 2
+    ;;
+esac
