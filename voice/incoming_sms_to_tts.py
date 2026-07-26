@@ -708,15 +708,14 @@ def read_only_scan(seen=None):
         seen.add(message.fingerprint)
         trusted = message.sender_normalized == CONTACT_NUMBER
         try:
-            clean = sanitize_text(message.text)
+            sanitize_text(message.text)
             clean_status = "accepted"
         except SmsDecodeError as exc:
-            clean = "<not printable>"
             clean_status = "rejected:%s" % str(exc)
         print("[READONLY] index=%d sender=%s trusted=%s dcs=%02X chars=%d "
-              "status=%s fingerprint=%s text=%s" %
+              "status=%s fingerprint=%s" %
               (message.index, mask_phone(message.sender), trusted, message.dcs,
-               len(message.text), clean_status, message.fingerprint[:12], clean), flush=True)
+               len(message.text), clean_status, message.fingerprint[:12]), flush=True)
     return seen
 
 
