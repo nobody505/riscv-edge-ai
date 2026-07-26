@@ -1,0 +1,41 @@
+title = "riscv-edge-ai secret and identity rules"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "wechat-app-id"
+description = "Tencent WeChat application identifier"
+regex = '''\bwx[0-9a-fA-F]{16}\b'''
+
+[[rules]]
+id = "dcloud-app-id"
+description = "DCloud application identifier"
+regex = '''\b__UNI__[0-9A-Fa-f]{7,}\b'''
+
+[[rules]]
+id = "windows-user-profile"
+description = "Local Windows user profile path"
+regex = '''(?i)[A-Z]:[\\/]Users[\\/][^\\/\s]+[\\/]'''
+
+[[rules]]
+id = "mainland-china-phone"
+description = "Mainland China mobile number"
+regex = '''(?:^|[^0-9])(?:\+?86[- ]?)?1[3-9][0-9]{9}(?:[^0-9]|$)'''
+
+[[rules]]
+id = "rfc1918-address"
+description = "Private IPv4 address"
+regex = '''\b(?:10\.(?:[0-9]{1,3}\.){2}[0-9]{1,3}|192\.168\.(?:[0-9]{1,3}\.)[0-9]{1,3}|172\.(?:1[6-9]|2[0-9]|3[01])\.(?:[0-9]{1,3}\.)[0-9]{1,3})\b'''
+
+[allowlist]
+description = "Immutable binary/model/runtime artifacts are verified separately by SHA-256"
+paths = [
+  '''^audio/.*\.wav$''',
+  '''^models/sensevoice/.*\.(mvn|model|onnx)$''',
+  '''^models/sensevoice/parts/model_quant\.onnx\.part-[0-9]+$''',
+  '''^vendor/.*\.tar\.gz$''',
+  '''^asrpro/.*\.(bin|hd)$''',
+  '''^yolo-mipi/.*\.onnx$''',
+  '''^app/static/.*\.png$''',
+]

@@ -1,0 +1,54 @@
+# 编译产物
+objs/
+workspace/
+*.o
+*.so
+*.a
+*.exe
+*.elf
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+node_modules/
+
+# 模型备份（仅保留最终版）
+*.bak.*
+*.onnx.bak*
+*.bak
+
+# 调试脚本
+_tmp_*
+_debug_*
+_diag_*
+
+# 操作系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 日志
+*.log
+
+# 环境变量/密钥
+.env
+*.env
+*.token
+app/config.js
+
+# Original >100 MB model is local-only; verified chunks are tracked instead.
+models/sensevoice/model_quant.onnx
+vendor/k1-python-pure-deps-20260726.tar.gz
