@@ -1,0 +1,44 @@
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="asr_easystart_setup" id="asrpro-xiaokong-fixed-r2-setup" x="0" y="0">
+    <field name="VOICE_SET">小蝶-清新女声</field><field name="vol">10</field><field name="speed">10</field><field name="WELCOME"></field><field name="SLEEP"></field><field name="play_vol">7</field><field name="mode">1</field><field name="second">15</field><field name="PIN0">4</field><field name="STATE0">1</field><field name="PIN1">29</field><field name="STATE1">input</field><field name="PIN2">29</field><field name="STATE2">input</field><field name="PIN3">29</field><field name="STATE3">input</field><field name="PIN4">29</field><field name="STATE4">input</field><field name="PIN5">29</field><field name="STATE5">input</field><field name="PIN6">29</field><field name="STATE6">input</field><field name="PIN7">29</field><field name="STATE7">input</field><field name="PIN8">29</field><field name="STATE8">input</field><field name="PIN9">29</field><field name="STATE9">input</field><field name="baud">115200</field><field name="baud1">-</field><field name="TX_1">2</field><field name="RX_1">3</field><field name="baud2">-</field><field name="TX_2">5</field><field name="RX_2">6</field>
+  </block>
+  <block type="asr_easystart_wakeup" id="asrpro-xiaokong-fixed-r2-wake" x="0" y="503">
+    <field name="ASR">小空小空</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">WAKE</field><field name="huifu"></field>
+    <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-on-chuxing">
+      <field name="ASR">打开出行模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_ON</field><field name="huifu"></field>
+      <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-off-chuxing">
+        <field name="ASR">关闭出行模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_OFF</field><field name="huifu"></field>
+        <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-on-xinglu">
+          <field name="ASR">打开行路模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_ON</field><field name="huifu"></field>
+          <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-off-xinglu">
+            <field name="ASR">关闭行路模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_OFF</field><field name="huifu"></field>
+            <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-on-xingzou">
+              <field name="ASR">打开行走模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_ON</field><field name="huifu"></field>
+              <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-off-xingzou">
+                <field name="ASR">关闭行走模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_OFF</field><field name="huifu"></field>
+                <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-on-chumen">
+                  <field name="ASR">打开出门模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_ON</field><field name="huifu"></field>
+                  <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-travel-off-chumen">
+                    <field name="ASR">关闭出门模式</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">TRAVEL_OFF</field><field name="huifu"></field>
+                    <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-light-on">
+                      <field name="ASR">打开灯带</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">LIGHT_ON</field><field name="huifu"></field>
+                      <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-light-off">
+                        <field name="ASR">关闭灯带</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">LIGHT_OFF</field><field name="huifu"></field>
+                        <next><block type="asr_easystart_recognize" id="asrpro-fixed-r2-fall-ack">
+                          <field name="ASR">关闭警报</field><field name="IO">-</field><field name="IO_mode">-</field><field name="IO_status">-</field><field name="serial">Serial</field><field name="serial_bin">String</field><field name="NAME">FALL_ACK</field><field name="huifu"></field>
+                        </block></next>
+                      </block></next>
+                    </block></next>
+                  </block></next>
+                </block></next>
+              </block></next>
+            </block></next>
+          </block></next>
+        </block></next>
+      </block></next>
+    </block></next>
+  </block>
+</xml>
+<!-- edittype="asr_pro_e" -->
+<!-- officialLib="[]" -->
+<!-- personalLib="[]" -->
